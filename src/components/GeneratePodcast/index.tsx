@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable multiline-ternary */
 'use client';
-
 import { Loader } from 'lucide-react';
 
 import type { GeneratePodcastProps } from '@/types';
@@ -34,6 +34,7 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
         <Button
           type="button"
           disabled={isGenerating}
+          onClick={generatePodcast}
           className="text-16 bg-orange-1 py-4 font-bold text-white-1"
         >
           {isGenerating ? (

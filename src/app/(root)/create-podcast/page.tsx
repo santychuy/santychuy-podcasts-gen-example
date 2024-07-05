@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable multiline-ternary */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -64,7 +66,7 @@ const CreatePodcast = () => {
     null
   );
 
-  const [voiceType, setVoiceType] = useState<VoiceType>('alloy');
+  const [voiceType, setVoiceType] = useState<VoiceType>();
   const [voicePrompt, setVoicePrompt] = useState('');
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -178,7 +180,7 @@ const CreatePodcast = () => {
             <GeneratePodcast
               setAudioStorageId={setAudioStorageId}
               setAudio={setAudioUrl}
-              voiceType={voiceType}
+              voiceType={voiceType!}
               audio={audioUrl}
               voicePrompt={voicePrompt}
               setVoicePrompt={setVoicePrompt}

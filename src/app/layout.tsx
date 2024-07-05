@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
 import ConvexClerkProvider from '@/app/providers/ConvexClerkProvider';
@@ -20,6 +21,7 @@ const RootLayout = ({
     <html lang="en">
       <body className={inter.className}>
         <ConvexClerkProvider>{children}</ConvexClerkProvider>
+        <Toaster />
       </body>
     </html>
   );
