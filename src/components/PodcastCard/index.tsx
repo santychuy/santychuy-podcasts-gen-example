@@ -1,13 +1,17 @@
 import Image from 'next/image';
 
-import type { PodcastData } from '@/constants/podcastData';
+interface PodcastCardProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
 
-const PodcastCard = ({ title, description, imgURL }: PodcastData) => {
+const PodcastCard = ({ title, description, imageUrl }: PodcastCardProps) => {
   return (
     <div className="cursor-pointer">
       <figure className="flex flex-col gap-2">
         <Image
-          src={imgURL}
+          src={imageUrl}
           alt={title}
           width={174}
           height={174}
