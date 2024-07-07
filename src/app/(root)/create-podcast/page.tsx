@@ -9,9 +9,12 @@
 
 import { useState } from 'react';
 import { z } from 'zod';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Loader } from 'lucide-react';
+import { toast } from 'sonner';
+import { useMutation } from 'convex/react';
 
 import type { VoiceType } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -38,6 +41,7 @@ import GeneratePodcast from '@/components/GeneratePodcast';
 import GenerateThumbnail from '@/components/GenerateThumbnail';
 
 import type { Id } from '../../../../convex/_generated/dataModel';
+import { api } from '../../../../convex/_generated/api';
 
 const voicesCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx'];
 
@@ -51,6 +55,8 @@ const formSchema = z.object({
 });
 
 const CreatePodcast = () => {
+  const router = useRouter();
+
   //  TODO: Improve it using Tanstack Query
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -69,6 +75,8 @@ const CreatePodcast = () => {
   const [voiceType, setVoiceType] = useState<VoiceType>();
   const [voicePrompt, setVoicePrompt] = useState('');
 
+  const createPodcast = useMutation(api.podcasts.createPodcast);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,11 +85,39 @@ const CreatePodcast = () => {
     }
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+
+    try {
+      if (!audioUrl || !imageUrl || !voiceType) {
+        toast.info('Please generate the audio and image of your podcast');
+        throw new Error('Please generate the audio and image of your podcast');
+      }
+
+      await createPodcast({
+        title: data.title,
+        description: data.description,
+        imageUrl,
+        audioUrl,
+        voiceType,
+        imagePrompt,
+        voicePrompt,
+        views: 0,
+        audioDuration,
+        audioStorageId: audioStorageId!,
+        imageStorageId: imageStorageId!
+      });
+
+      toast.success('Podcast created!');
+
+      router.push('/');
+    } catch (error) {
+      console.log(error);
+      toast.error('Error creating podcast');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="flex flex-col">
@@ -187,7 +223,13 @@ const CreatePodcast = () => {
               setAudioDuration={setAudioDuration}
             />
 
-            <GenerateThumbnail />
+            <GenerateThumbnail
+              imagePrompt={imagePrompt}
+              setImagePrompt={setImagePrompt}
+              setImageStorageId={setImageStorageId}
+              image={imageUrl}
+              setImage={setImageUrl}
+            />
 
             <div className="mt-10 w-full">
               <Button

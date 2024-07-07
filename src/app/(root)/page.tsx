@@ -1,26 +1,36 @@
+/* eslint-disable multiline-ternary */
 'use client';
 
+import { useQuery } from 'convex/react';
+import { Loader } from 'lucide-react';
+
 import PodcastCard from '@/components/PodcastCard';
-import { podcastData } from '@/constants/podcastData';
+
+import { api } from '../../../convex/_generated/api';
 
 const Home = () => {
+  const podcasts = useQuery(api.podcasts.getPodcasts);
+
   return (
     <section className="flex flex-col gap-10">
       <h1 className="text-2xl font-bold text-white-1">Trending Podcasts</h1>
 
-      <div className="podcast_grid">
-        {podcastData.map(({ id, title, description, imgURL }) => {
-          return (
-            <PodcastCard
-              key={id}
-              id={id}
-              title={title}
-              description={description}
-              imgURL={imgURL}
-            />
-          );
-        })}
-      </div>
+      {podcasts === undefined ? (
+        <Loader size={20} className="animate-spin text-white-1" />
+      ) : (
+        <div className="podcast_grid">
+          {podcasts.map(({ _id, title, description, imageUrl }) => {
+            return (
+              <PodcastCard
+                key={_id}
+                title={title}
+                description={description}
+                imageUrl={imageUrl}
+              />
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 };
