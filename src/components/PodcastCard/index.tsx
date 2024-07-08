@@ -1,14 +1,27 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface PodcastCardProps {
   title: string;
   description: string;
   imageUrl: string;
+  id: string;
 }
 
-const PodcastCard = ({ title, description, imageUrl }: PodcastCardProps) => {
+const PodcastCard = ({
+  title,
+  description,
+  imageUrl,
+  id
+}: PodcastCardProps) => {
+  const router = useRouter();
+
+  const handleViews = () => {
+    router.push(`/podcast/${id}`, { scroll: true });
+  };
+
   return (
-    <div className="cursor-pointer">
+    <div className="cursor-pointer" onClick={handleViews}>
       <figure className="flex flex-col gap-2">
         <Image
           src={imageUrl}

@@ -23,6 +23,7 @@ const Home = () => {
             return (
               <PodcastCard
                 key={_id}
+                id={_id}
                 title={title}
                 description={description}
                 imageUrl={imageUrl}
