@@ -9,6 +9,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'gallant-ptarmigan-592.convex.cloud'
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.clerk.com'
       }
     ]
   }
