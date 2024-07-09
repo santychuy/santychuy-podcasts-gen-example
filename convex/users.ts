@@ -88,10 +88,11 @@ export const deleteUser = internalMutation({
   }
 });
 
-// this query is used to get the top user by podcast count. first the podcast is sorted by views and then the user is sorted by total podcasts, so the user with the most podcasts will be at the top.
-/* export const getTopUserByPodcastCount = query({
-  args: {},
-  handler: async (ctx, args) => {
+// This query is used to get the top user by podcast count.
+// first the podcast is sorted by views and then the user is sorted by total podcasts,
+// so the user with the most podcasts will be at the top.
+export const getTopUserByPodcastCount = query({
+  handler: async (ctx) => {
     const user = await ctx.db.query('users').collect();
 
     const userData = await Promise.all(
@@ -107,8 +108,8 @@ export const deleteUser = internalMutation({
           ...u,
           totalPodcasts: podcasts.length,
           podcast: sortedPodcasts.map((p) => ({
-            podcastTitle: p.podcastTitle,
-            pocastId: p._id
+            podcastTitle: p.title,
+            podcastId: p._id
           }))
         };
       })
@@ -116,4 +117,4 @@ export const deleteUser = internalMutation({
 
     return userData.sort((a, b) => b.totalPodcasts - a.totalPodcasts);
   }
-}); */
+});
