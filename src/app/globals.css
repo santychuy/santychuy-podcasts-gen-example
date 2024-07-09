@@ -115,6 +115,10 @@ html {
 }
 .cl-button {
   color: white;
+
+  &:hover {
+    color: #ffffff;
+  }
 }
 .cl-socialButtonsProviderIcon__github {
   filter: invert(1);
