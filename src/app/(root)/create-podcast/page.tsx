@@ -108,9 +108,9 @@ const CreatePodcast = () => {
         imageStorageId: imageStorageId!
       });
 
-      toast.success('Podcast created!');
-
       router.push('/');
+
+      toast.success('Podcast created!');
     } catch (error) {
       console.log(error);
       toast.error('Error creating podcast');
