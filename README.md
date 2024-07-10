@@ -4,6 +4,10 @@
 
 Santychuy Podcast Generator es una aplicación que permite a los usuarios escuchar podcasts generados por inteligencia artificial. La aplicación utiliza la API de OpenAI para generar el audio y (opcional) portada del podcast.
 
+
+https://github.com/santychuy/santychuy-podcasts-gen-example/assets/28853786/945a8617-49a1-4f1c-b783-dc755ac6151f
+
+
 ## Third Parties
 
 - [Clerk](https://clerk.com)
