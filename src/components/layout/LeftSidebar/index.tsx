@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 'use client';
-
 import { SignedOut, SignedIn, useClerk } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';

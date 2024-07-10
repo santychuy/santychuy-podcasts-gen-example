@@ -1,14 +1,14 @@
+/* eslint-disable multiline-ternary */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client';
-
 import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useQuery } from 'convex/react';
 import { useRouter } from 'next/navigation';
-import { Loader } from 'lucide-react';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import { useAudio } from '@/hooks/useAudio';
 import { cn } from '@/lib/utils';
 
@@ -23,10 +23,6 @@ const RightSidebar = () => {
   const { audio } = useAudio();
 
   const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
-
-  if (!topPodcasters) {
-    return <Loader className="animate-spin text-white-1" size={20} />;
-  }
 
   return (
     <section
@@ -53,12 +49,23 @@ const RightSidebar = () => {
 
       <section className="flex flex-col gap-3">
         <Header title="Fans Like You" />
-        <Carousel fansLikeDetail={topPodcasters} />
+        {!topPodcasters ? (
+          <Skeleton className="w-[250px] h-[250px] rounded-xl " />
+        ) : (
+          <Carousel fansLikeDetail={topPodcasters} />
+        )}
       </section>
 
       <section className="flex flex-col gap-8 pt-12">
         <Header title="Top Podcasters" />
         <div className="flex flex-col gap-6">
+          {!topPodcasters &&
+            Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <Skeleton className="min-w-[44px] min-h-[44px] rounded-xl" />
+                <Skeleton className="w-full h-[10px]" />
+              </div>
+            ))}
           {topPodcasters?.slice(0, 4).map((podcaster) => (
             <div
               key={podcaster._id}

@@ -6,7 +6,6 @@ import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Loader } from 'lucide-react';
 
 import type { CarouselProps } from '@/types';
 import { DotButton, useDotButton } from './DotButton';
@@ -34,10 +33,6 @@ const EmblaCarousel = ({ fansLikeDetail }: CarouselProps) => {
 
   const slides =
     fansLikeDetail && fansLikeDetail.filter((item) => item.totalPodcasts > 0);
-
-  if (!slides) {
-    return <Loader className="text-white-1 animate-spin" size={20} />;
-  }
 
   return (
     <section

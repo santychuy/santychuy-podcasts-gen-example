@@ -6,7 +6,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 'use client';
-
 import { useState } from 'react';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
