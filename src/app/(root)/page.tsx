@@ -12,7 +12,7 @@ const Home = () => {
   const podcasts = useQuery(api.podcasts.getPodcasts);
 
   return (
-    <section className="flex flex-col gap-10">
+    <section className="flex flex-col gap-10 md:overflow-hidden">
       <h1 className="text-2xl font-bold text-white-1">Trending Podcasts</h1>
 
       {podcasts === undefined ? (

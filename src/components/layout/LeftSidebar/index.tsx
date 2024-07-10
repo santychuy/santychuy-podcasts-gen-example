@@ -9,14 +9,20 @@ import { usePathname, useRouter } from 'next/navigation';
 import { routes } from '@/constants/routes';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useAudio } from '@/hooks/useAudio';
 
 const LeftSidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { signOut } = useClerk();
+  const { audio } = useAudio();
 
   return (
-    <section className="left_sidebar">
+    <section
+      className={cn('left_sidebar h-[calc(100vh-5px)]', {
+        'h-[calc(100vh-140px)]': audio?.audioUrl
+      })}
+    >
       <nav className="flex flex-col gap-6">
         <Link
           href="/"
