@@ -3,6 +3,7 @@ import Image from 'next/image';
 import LeftSidebar from '@/components/layout/LeftSidebar';
 import RightSidebar from '@/components/layout/RightSidebar';
 import MobileNav from '@/components/layout/MobileNav';
+import PodcastPlayer from '@/components/PodcastPlayer';
 
 const RootLayout = ({
   children
@@ -24,6 +25,8 @@ const RootLayout = ({
         </section>
         <RightSidebar />
       </main>
+
+      <PodcastPlayer />
     </div>
   );
 };

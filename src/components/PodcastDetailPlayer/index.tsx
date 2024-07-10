@@ -9,8 +9,7 @@ import { toast } from 'sonner';
 
 import type { PodcastDetailPlayerProps } from '@/types';
 import { Button } from '@/components/ui/button';
-
-// import { useAudio } from '@/providers/AudioProvider';
+import { useAudio } from '@/hooks/useAudio';
 
 import { api } from '../../../convex/_generated/api';
 
@@ -27,7 +26,7 @@ const PodcastDetailPlayer = ({
   authorId
 }: PodcastDetailPlayerProps) => {
   const router = useRouter();
-  // const { setAudio } = useAudio();
+  const { setAudio } = useAudio();
 
   const [isDeleting, setIsDeleting] = useState(false);
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
@@ -44,13 +43,13 @@ const PodcastDetailPlayer = ({
   };
 
   const handlePlay = () => {
-    /* setAudio({
-      title: podcastTitle,
+    setAudio({
+      title,
       audioUrl,
       imageUrl,
       author,
       podcastId
-    }); */
+    });
   };
 
   return (
